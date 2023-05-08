@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  python-project2:
+    build: .
+    command: python3 manage.py runserver
+    ports:
+      - 8000:8000
+    container_name: python_project2
+  db-server-postgres:
+    image: postgres:13.2-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+    container_name: db_posgres
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:
